@@ -2,26 +2,26 @@
 
 class Model
 {
-    public $db;
+	public $db;
 
-    public function __construct($host,$user,$pass,$db) {
-        mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-        $this->db = new mysqli($host, $user, $pass);
-        if (!$this->db) {
-            exit('НЕТ СОЕДИНЕНИЯ С БАЗОЙ!!!');
-        }
-        if (!$this->db->select_db($db)) {
-            exit('НЕТ ВЫБРАННОЙ ТАБЛИЦЫ');
-        }
-        $this->db->set_charset('utf8mb4');
+	public function __construct($host,$user,$pass,$db) {
+		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+		$this->db = new mysqli($host, $user, $pass);
+		if (!$this->db) {
+			exit('НЕТ СОЕДИНЕНИЯ С БАЗОЙ!!!');
+		}
+		if (!$this->db->select_db($db)) {
+			exit('НЕТ ВЫБРАННОЙ ТАБЛИЦЫ');
+		}
+		$this->db->set_charset('utf8mb4');
 
-        return $this->db;
-    }
+		return $this->db;
+	}
 
-    public function getUser() {
-        $sql = "SELECT `user_id`, `name`, `DR`, `DH`, `info`, `oklad`, `comment`, `date` FROM `user`";
-        $result = $this->db->query($sql);
-        if(!$result) {
+	public function getUser() {
+		$sql = "SELECT `user_id`, `name`, `DR`, `DH`, `info`, `oklad`, `comment`, `date` FROM `user`";
+		$result = $this->db->query($sql);
+		if(!$result) {
 			return FALSE;
 		}
 		for ($i = 0; $i < mysqli_num_rows($result); $i++) {
@@ -29,7 +29,7 @@ class Model
 		}
 		
 		return $row;
-    }
+	}
 
 	public function getUserEdit($id) {
 		$sql = "SELECT `user_id`, `name`, `oklad`, `coefficient`, `DR`, `DH`, `info`, `comment` FROM `user` WHERE `user_id` = '%s'";
